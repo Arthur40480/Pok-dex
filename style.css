@@ -56,9 +56,47 @@ h1 {
 .pokemon-container {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    margin: auto;
+    width: 1200px;
 }
 
 .pokemon-card {
-    display: inline-block;
-    background-color: aqua;
+    position: relative;
+    text-align: center;
+    width: 250px;
+    margin: 20px;
+    padding: 20px 40px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #ffffff;
+    background-color: #333;
 }
+
+.pokemon-id {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    padding: 3px 6px;
+    border-radius: 0px 2px 2px 2px;
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #000000;
+    background-color: #d9ff00;
+}
+
+.pokemon-card img {
+    display: inline-block;
+}
+
+.container-information {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pokemon-name {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+
