@@ -5,7 +5,21 @@ import { typeColors } from "./colors.js";
 const searchInputElt = document.querySelector('.recherche-pokemon input');
 const pokemonContainerElt = document.querySelector('.pokemon-container');
 
-// Ajout d'évènement sur l'input
+const pokemonList = [];
+
+searchInputElt.addEventListener('input', function(e) {
+    const searchPokemonElt = e.target.value.toLowerCase();
+    if(searchPokemonElt != "") {
+        pokemonContainerElt.innerHTML = "";
+        const filteredArray = pokemonList.filter(el => el.name.toLowerCase().includes(searchPokemonElt));
+        displayPokemon(filteredArray);
+    }else {
+        pokemonContainerElt.innerHTML = "";
+        displayPokemon(pokemonList);
+    }
+});
+
+// Ajout d'évènement sur l'input qui cible le label
 searchInputElt.addEventListener('input', function(e) {
     if(e.target.value !== "") {
        e.target.parentNode.classList.add('active-input');
@@ -16,8 +30,6 @@ searchInputElt.addEventListener('input', function(e) {
 
 // Fonction permettant de récupérer les données de chaque pokémon
 async function fetchAllPokemonData() {
-    const pokemonList = [];
-
     for (let i = 1; i <= 151; i++) {    
         const pokemonData = {};
 
