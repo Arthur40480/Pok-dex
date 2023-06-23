@@ -55,15 +55,21 @@ async function fetchAllPokemonData() {
 // Fonction permettant de créer les éléments html pour afficher les pokémons
 function displayPokemon(pokemonList) {
     pokemonList.forEach(pokemon => {
+        const cardColor = typeColors.find(type => type.type === pokemon.type).color;
+        const typeTraduction = typeColors.find(type => type.type === pokemon.type).traduction;
+        const imgType = typeColors.find(type => type.type === pokemon.type).typeImgPath;
+
         const cardPokemonElt = document.createElement('div');
         cardPokemonElt.classList.add('pokemon-card');
         cardPokemonElt.classList.add(pokemon.type);
-        const cardColor = typeColors.find(type => type.type === pokemon.type).color;
-        const typeTraduction = typeColors.find(type => type.type === pokemon.type).traduction;
+
         cardPokemonElt.style.border = `5px solid ${cardColor}`;
         cardPokemonElt.style.boxShadow = `2px 2px 20px ${cardColor}`;
         
-        
+        const pokemonIdElt = document.createElement('p');
+        pokemonIdElt.classList.add('pokemon-id');
+        pokemonIdElt.innerText = '#' + pokemon.id;
+
         const imgPokemonElt = document.createElement('img');
         imgPokemonElt.classList.add('img-pokemon');
         imgPokemonElt.src = pokemon.img;
@@ -71,9 +77,9 @@ function displayPokemon(pokemonList) {
         const informationContainerElt = document.createElement('div');
         informationContainerElt.classList.add('container-information');
 
-        const pokemonIdElt = document.createElement('p');
-        pokemonIdElt.classList.add('pokemon-id');
-        pokemonIdElt.innerText = '#' + pokemon.id;
+        const imgTypeElt = document.createElement('img');
+        imgTypeElt.classList.add('img-type');
+        imgTypeElt.src = imgType;
 
         const pokemonNameElt = document.createElement('p');
         pokemonNameElt.classList.add('pokemon-name');
@@ -83,7 +89,7 @@ function displayPokemon(pokemonList) {
         pokemonTypeElt.classList.add('pokemon-type');
         pokemonTypeElt.innerText = `${pokemon.type} || ${typeTraduction}`;
         
-        informationContainerElt.append(pokemonNameElt, pokemonTypeElt);
+        informationContainerElt.append(imgTypeElt, pokemonNameElt, pokemonTypeElt);
         cardPokemonElt.append(pokemonIdElt, imgPokemonElt, informationContainerElt);
         pokemonContainerElt.append(cardPokemonElt);
     });
