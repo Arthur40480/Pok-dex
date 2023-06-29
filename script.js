@@ -4,6 +4,7 @@ import { typeColors } from "./colors.js";
 // On récupère les éléments du DOM
 const searchInputElt = document.querySelector('.recherche-pokemon input');
 const pokemonContainerElt = document.querySelector('.pokemon-container');
+const preloaderElt = document.querySelector('.preloader');
 
 const pokemonList = [];
 
@@ -49,12 +50,13 @@ async function fetchAllPokemonData() {
             pokemonList.sort((a, b) => a.id - b.id);
         });
     };
+    EndLoader(preloaderElt);
     displayPokemon(pokemonList);
 };
 
 // Fonction permettant de créer les éléments html pour afficher les pokémons
-function displayPokemon(pokemonList) {
-    pokemonList.forEach(pokemon => {
+async function displayPokemon(pokemonList) {
+    await pokemonList.forEach(pokemon => {
         const cardColor = typeColors.find(type => type.type === pokemon.type).color;
         const typeTraduction = typeColors.find(type => type.type === pokemon.type).traduction;
         const imgType = typeColors.find(type => type.type === pokemon.type).typeImgPath;
@@ -92,8 +94,26 @@ function displayPokemon(pokemonList) {
         informationContainerElt.append(imgTypeElt, pokemonNameElt, pokemonTypeElt);
         cardPokemonElt.append(pokemonIdElt, imgPokemonElt, informationContainerElt);
         pokemonContainerElt.append(cardPokemonElt);
-    });
+    });  
 };
 
-fetchAllPokemonData();
+await fetchAllPokemonData();
 
+// Fonction pour ajouter l'animation du loader
+function EndLoader(element) {
+    element.classList.add('animate');
+    element.style.animationDuration = '1s';
+    element.style.animationFillMode = 'forwards';
+    element.style.animationName = 'preloader-off';
+    element.style.animationTimingFunction = 'ease';
+    element.style.animationDelay = '1s';
+}
+const observer = new IntersectionObserver((entries) => {
+    console.log(entries)
+});
+
+console.log(pokemonContainerElt.childElementCount);
+const pokemonCards = pokemonContainerElt.querySelectorAll('.pokemon-card');
+pokemonCards.forEach(pokemon => {
+    observer.observe(pokemon);
+});
