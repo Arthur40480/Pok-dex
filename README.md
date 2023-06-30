@@ -16,3 +16,5 @@ Clonez ce dépôt de code sur votre machine
 Ouvrez le fichier index.html dans votre navigateur.
 
 Vous devriez voir l'application Pokédex avec les 151 premiers Pokémon affichés. Utilisez la barre de recherche pour trouver un Pokémon spécifique en saisissant son nom.
+
+Documentation de l'API [PokéApi](https://pokeapi.co/)
